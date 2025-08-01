@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full Body Tracking</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <video id="webcam" autoplay muted playsinline></video>
+        <canvas id="overlay"></canvas>
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Initializing camera and pose detection...</p>
+        </div>
+        <div class="controls">
+            <button id="toggleCamera" class="control-btn">📹</button>
+            <button id="togglePose" class="control-btn active">🏃</button>
+        </div>
+    </div>
+    
+    <script type="importmap">
+    {
+        "imports": {
+            "@mediapipe/pose": "https://cdn.jsdelivr.net/npm/@mediapipe/pose@0.5.1675469404/pose.js",
+            "@mediapipe/camera_utils": "https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils@0.3.1640029074/camera_utils.js",
+            "@mediapipe/drawing_utils": "https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils@0.3.1620248257/drawing_utils.js"
+        }
+    }
+    </script>
+    <script src="script.js" type="module"></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"4c6229722a6346bc8eb5cb0e5eae5d41","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+</html>
+
