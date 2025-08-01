@@ -54,17 +54,33 @@ class FullBodyTracker {
     }
     
     async setupCamera() {
-        this.camera = new Camera(this.webcam, {
-            onFrame: async () => {
-                if (this.isPoseEnabled) {
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({
+                video: {
+                    width: { ideal: 1280 },
+                    height: { ideal: 720 },
+                    facingMode: 'user'
+                }
+            });
+            
+            this.webcam.srcObject = stream;
+            
+            // Process video frames for pose detection
+            const processFrame = async () => {
+                if (this.isPoseEnabled && this.webcam.readyState === 4) {
                     await this.pose.send({ image: this.webcam });
                 }
-            },
-            width: 1280,
-            height: 720
-        });
-        
-        await this.camera.start();
+                requestAnimationFrame(processFrame);
+            };
+            
+            this.webcam.addEventListener('loadedmetadata', () => {
+                processFrame();
+            });
+            
+        } catch (error) {
+            console.error('Camera setup failed:', error);
+            throw new Error('Could not access camera');
+        }
     }
     
     setupControls() {
@@ -171,4 +187,3 @@ class FullBodyTracker {
 document.addEventListener('DOMContentLoaded', () => {
     new FullBodyTracker();
 });
-
